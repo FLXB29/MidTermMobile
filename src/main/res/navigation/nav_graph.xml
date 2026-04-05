@@ -3,12 +3,12 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nag_graph"
-    app:startDestination="@id/firstFragment">
+    app:startDestination="@id/threeFragment">
 
     <fragment
         android:id="@+id/firstFragment"
-        android:name="com.example.midbyme.FirstFragment"
-        android:label="fragment_first"
+        android:name="com.example.midbyme.ui.fragments.FirstFragment"
+        android:label="Bài 2"
         tools:layout="@layout/fragment_first" >
         <action
             android:id="@+id/lineGotoDetail"
@@ -16,12 +16,57 @@
     </fragment>
     <fragment
         android:id="@+id/secondFragment"
-        android:name="com.example.midbyme.SecondFragment"
+        android:name="com.example.midbyme.ui.fragments.SecondFragment"
         android:label="fragment_second"
         tools:layout="@layout/fragment_second" />
     <fragment
         android:id="@+id/threeFragment"
-        android:name="com.example.midbyme.ThirdFragment"
-        android:label="fragment_three"
-        tools:layout="@layout/fragment_third" />
+        android:name="com.example.midbyme.ui.fragments.ThirdFragment"
+        android:label="Home"
+        tools:layout="@layout/fragment_third" >
+        <action
+            android:id="@+id/to_sinh_vien"
+            app:destination="@id/firstFragment" />
+        <action
+            android:id="@+id/to_tbc"
+            app:destination="@id/TBC_InputFragment2" />
+        <action
+            android:id="@+id/action_threeFragment_to_PT1Fragment"
+            app:destination="@id/PT1Fragment" />
+        <action
+            android:id="@+id/action_threeFragment_to_triangleFragment2"
+            app:destination="@id/triangleFragment2" />
+        <action
+            android:id="@+id/action_threeFragment_to_PTBac2Fragment"
+            app:destination="@id/PTBac2Fragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/TBC_InputFragment2"
+        android:name="com.example.midbyme.tbc.TBC_InputFragment"
+        android:label="Bài 1"
+        tools:layout="@layout/fragment_t_b_c__input" >
+        <action
+            android:id="@+id/tbc_got_to_result"
+            app:destination="@id/TBC_OuputFragment2" />
+    </fragment>
+    <fragment
+        android:id="@+id/TBC_OuputFragment2"
+        android:name="com.example.midbyme.tbc.TBC_OuputFragment"
+        android:label="fragment_t_b_c__ouput"
+        tools:layout="@layout/fragment_t_b_c__ouput" />
+    <fragment
+        android:id="@+id/PT1Fragment"
+        android:name="com.example.midbyme.pt_bac1.PT1Fragment"
+        android:label="fragment_p_t1"
+        tools:layout="@layout/fragment_p_t1" />
+    <fragment
+        android:id="@+id/PTBac2Fragment"
+        android:name="com.example.midbyme.pt_bac2.PTBac2Fragment"
+        android:label="fragment_pt_bac2"
+        tools:layout="@layout/fragment_pt_bac2" />
+    <fragment
+        android:id="@+id/triangleFragment2"
+        android:name="com.example.midbyme.triangle.TriangleFragment"
+        android:label="fragment_triangle_area"
+        tools:layout="@layout/fragment_triangle_area" />
 </navigation>

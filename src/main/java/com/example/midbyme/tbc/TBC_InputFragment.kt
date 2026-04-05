@@ -36,7 +36,7 @@ class TBC_InputFragment : Fragment() {
                 val bundle = Bundle().apply{
                     putString("res","Không có số nguyên tố nào")
                 }
-                findNavController().navigate(R.id.tbc_res,bundle)
+                findNavController().navigate(R.id.tbc_got_to_result,bundle)
 
             }
             else{
@@ -44,11 +44,12 @@ class TBC_InputFragment : Fragment() {
                 val bundle = Bundle().apply{
                     putString("res",res.toString())
                 }
-                findNavController().navigate(R.id.tbc_res,bundle)
+                findNavController().navigate(R.id.tbc_got_to_result,bundle)
             }
         }
     }
     fun isPrime( x:Int): Boolean{
+        if(x<2) return false
         for(i in 2.. Math.sqrt(x.toDouble()).toInt()){
             if(x%i==0) return false
         }

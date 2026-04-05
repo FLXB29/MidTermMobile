@@ -4,23 +4,44 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:layout_marginTop="30sp"
+    android:padding="20dp"
     tools:context=".SecondFragment">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/bai2_result_title"
+        android:textSize="22sp"
+        android:textStyle="bold" />
 
     <TextView android:id="@+id/tvDetailId"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
         android:textSize="20sp" />
+
     <TextView android:id="@+id/tvDetailName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
         android:textSize="24sp"
         android:textStyle="bold" />
+
     <TextView android:id="@+id/tvDetailSex"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp" />
+
     <TextView android:id="@+id/tvDetailHobbies"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp" />
+
+    <Button
+        android:id="@+id/btnBackBai2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:text="@string/back_to_bai2" />
 
 </LinearLayout>

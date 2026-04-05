@@ -1,23 +1,35 @@
-package com.example.midbyme
-
-import kotlin.jvm.java
-
+package com.example.midbyme.ui.fragments
 
 import android.os.Bundle
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.lifecycle.ViewModelProvider
+import androidx.fragment.app.activityViewModels
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.midbyme.R
+import com.example.midbyme.data.model.Student
 import com.example.midbyme.databinding.DialogAddStudentBinding
 import com.example.midbyme.databinding.FragmentFirstBinding
+import com.example.midbyme.ui.adapter.StudentAdapter
+import com.example.midbyme.ui.viewmodel.ShareViewModel
+import com.example.midbyme.ui.viewmodel.StudentViewModel
+import com.example.midbyme.ui.viewmodel.StudentViewModelFactory
+import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.launch
 
 class FirstFragment : Fragment() {
     private lateinit var binding: FragmentFirstBinding
-    private var studentList = ArrayList<Student>()
     private lateinit var myAdapter: StudentAdapter
+    private val shareViewModel: ShareViewModel by activityViewModels()
+    private val studentViewModel: StudentViewModel by viewModels {
+        StudentViewModelFactory(requireContext().applicationContext)
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -30,35 +42,43 @@ class FirstFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        if (studentList.isEmpty()){
-            studentList.add(Student("24IT021", "Nguyễn Khiêm", "19", "Nam", "Nghe nhạc"))
-            studentList.add(Student("24IT102", "Lê Văn Tuấn", "20", "Nam", "Dạo bộ"))
-            studentList.add(Student("24IT103", "Trần Thị Bích Tuyền", "21", "Nữ", "Dạo bộ, Nghe nhạc"))
-        }
-
-        myAdapter = StudentAdapter(studentList)
+        myAdapter = StudentAdapter()
         binding.rvStudent.layoutManager = LinearLayoutManager(requireContext())
         binding.rvStudent.adapter = myAdapter
 
         myAdapter.onClick = { position -> updateStudentDialog(position) }
         myAdapter.onLongClick = { position -> holdStudentDialog(position) }
-        myAdapter.onDetaiClick = { position -> detailStudent(position)}
+        myAdapter.onDetaiClick = { position -> detailStudent(position) }
+        myAdapter.onDeleteClick = { position -> holdStudentDialog(position) }
 
-        myAdapter.onDeleteClick = {positon ->holdStudentDialog(positon)}
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewLifecycleOwner.repeatOnLifecycle(androidx.lifecycle.Lifecycle.State.STARTED) {
+                studentViewModel.students.collectLatest { students ->
+                    myAdapter.submitStudents(students)
+                }
+            }
+        }
+
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewLifecycleOwner.repeatOnLifecycle(androidx.lifecycle.Lifecycle.State.STARTED) {
+                studentViewModel.messages.collectLatest { message ->
+                    Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show()
+                }
+            }
+        }
 
         binding.floatingActionButton.setOnClickListener { showAddStudentDialog() }
     }
 
     private fun detailStudent(position: Int) {
-        val student = studentList[position]
-        val viewModel = ViewModelProvider(requireActivity()).get(ShareViewModel::class.java)
-        viewModel.Student = student
+        val student = myAdapter.getStudentAt(position)
+        shareViewModel.student = student
         findNavController().navigate(R.id.lineGotoDetail)
     }
 
     private fun updateStudentDialog(position: Int) {
         val dialogBinding = DialogAddStudentBinding.inflate(layoutInflater)
-        val student = studentList[position]
+        val student = myAdapter.getStudentAt(position)
 
         val dialog = androidx.appcompat.app.AlertDialog.Builder(requireContext())
         dialog.setView(dialogBinding.root)
@@ -70,7 +90,6 @@ class FirstFragment : Fragment() {
             edtAge.setText(student.Age)
             edtId.isEnabled = false
 
-            // FIX ID: Sử dụng đúng ID trong XML dialog
             if (student.Sex == "Nam") dialogRbMale.isChecked = true else dialogRbFemale.isChecked = true
             dialogCbGame.isChecked = student.Hobbies.contains("Dạo bộ")
             dialogCbMusic.isChecked = student.Hobbies.contains("Nghe nhạc")
@@ -87,8 +106,9 @@ class FirstFragment : Fragment() {
             val hobbies = hobbyList.joinToString(", ")
 
             if (name.isNotEmpty() && age.isNotEmpty()) {
-                studentList[position] = Student(student.Id, name, age, sex, hobbies)
-                myAdapter.notifyItemChanged(position)
+                studentViewModel.updateStudent(Student(student.Id, name, age, sex, hobbies))
+            } else {
+                Toast.makeText(requireContext(), "Vui lòng nhập đủ thông tin", Toast.LENGTH_SHORT).show()
             }
         }
         dialog.setNegativeButton("Hủy", null)
@@ -96,14 +116,13 @@ class FirstFragment : Fragment() {
     }
 
     private fun holdStudentDialog(position: Int) {
+        val student = myAdapter.getStudentAt(position)
         val dialog = androidx.appcompat.app.AlertDialog.Builder(requireContext())
         dialog.setTitle("Xác nhận xóa")
-        dialog.setMessage("Bạn có chắc chắn muốn xóa sinh viên ${studentList[position].Name}?")
+        dialog.setMessage("Bạn có chắc chắn muốn xóa sinh viên ${student.Name}?")
 
         dialog.setPositiveButton("Có") { _, _ ->
-            studentList.removeAt(position)
-            myAdapter.notifyItemRemoved(position)
-            myAdapter.notifyItemRangeChanged(position, studentList.size)
+            studentViewModel.deleteStudent(student)
         }
         dialog.setNegativeButton("Không", null)
         dialog.show()
@@ -127,9 +146,9 @@ class FirstFragment : Fragment() {
             val hobbies = hobbyList.joinToString(", ")
 
             if (id.isNotEmpty() && name.isNotEmpty() && age.isNotEmpty()) {
-                studentList.add(Student(id, name, age, sex, hobbies))
-                myAdapter.notifyItemInserted(studentList.size - 1)
-                binding.rvStudent.smoothScrollToPosition(studentList.size - 1)
+                studentViewModel.addStudent(Student(id, name, age, sex, hobbies))
+            } else {
+                Toast.makeText(requireContext(), "Vui lòng nhập đủ thông tin", Toast.LENGTH_SHORT).show()
             }
         }
         dialog.setNegativeButton("Hủy", null)

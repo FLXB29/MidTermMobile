@@ -1,20 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
-        android:id="@+id/firstFragment"
-        android:title="Home"
+        android:id="@+id/threeFragment"
+        android:title="Tổng quan"
         android:icon="@drawable/home"
         />
-
     <item
-        android:id="@+id/secondFragment"
-        android:title="Plane"
-        android:icon="@drawable/plane"
-        />
-
+        android:id="@+id/firstFragment"
+        android:title="Bài 1"
+        android:icon="@drawable/next"/>
     <item
-        android:id="@+id/threeFragment"
-        android:title="next"
-        android:icon="@drawable/next"
-        />
+        android:id="@+id/TBC_InputFragment2"
+        android:title="Bài 2"
+        android:icon="@drawable/plane"/>
+    <item
+        android:id="@+id/PT1Fragment"
+        android:title="Bài 3"
+        android:icon="@drawable/home"/>
+    <item
+        android:id="@+id/PTBAC2Fragment"
+        android:title="Bài 4"
+        android:icon="@drawable/home"/>
+    <item
+    android:id="@+id/triangleFragment2"
+    android:title="Bài 5"
+    android:icon="@drawable/home"/>
+
+
 </menu>

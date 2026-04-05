@@ -1,5 +1,16 @@
 <resources>
     <string name="app_name">MidByMe</string>
-    <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="summary_title">Màn hình tổng</string>
+    <string name="summary_description">Chọn phần bài tập bạn muốn mở nhanh.</string>
+    <string name="open_average_screen">Bài 1: Trung bình cộng (số nguyên tố)</string>
+    <string name="open_student_screen">Bài 2: Danh sách sinh viên đã làm</string>
+    <string name="bai2_result_title">Bài 2: Kết quả sinh viên</string>
+    <string name="back_to_bai2">Trở về danh sách</string>
+    <string name="student_id_label">Mã sinh viên: %1$s</string>
+    <string name="student_name_label">Họ và tên: %1$s</string>
+    <string name="student_sex_label">Giới tính: %1$s</string>
+    <string name="student_hobbies_label">Sở thích: %1$s</string>
+    <string name="open_drawer">Mo menu</string>
+    <string name="close_drawer">Dong menu</string>
 </resources>

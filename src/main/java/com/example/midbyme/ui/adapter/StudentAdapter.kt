@@ -1,14 +1,15 @@
-package com.example.midbyme
+package com.example.midbyme.ui.adapter
 
-
-import android.R.attr.onClick
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.example.midbyme.data.model.Student
 import com.example.midbyme.databinding.ItemStudentBinding
 
-class StudentAdapter(private val students: List<Student>) :
+class StudentAdapter :
     RecyclerView.Adapter<StudentAdapter.StudentViewHolder>() {
+
+    private val students = mutableListOf<Student>()
 
     class StudentViewHolder(val binding: ItemStudentBinding) : RecyclerView.ViewHolder(binding.root)
 
@@ -17,19 +18,25 @@ class StudentAdapter(private val students: List<Student>) :
         return StudentViewHolder(binding)
     }
 
+    fun submitStudents(newStudents: List<Student>) {
+        students.clear()
+        students.addAll(newStudents)
+        notifyDataSetChanged()
+    }
+
+    fun getStudentAt(position: Int): Student = students[position]
+
     override fun onBindViewHolder(holder: StudentViewHolder, position: Int) {
         val student = students[position]
         holder.binding.apply {
             tvName.text = "Họ và tên: ${student.Name}"
             tvClass.text = "Tuổi: ${student.Age}"
 
-            // --- Đổ dữ liệu Giới tính ---
             if (student.Sex == "Nam") {
                 rbMale.isChecked = true
             } else {
                 rbFemale.isChecked = true
             }
-
 
             inCbGame.isChecked = student.Hobbies.contains("Dạo bộ")
             inCbMusic.isChecked = student.Hobbies.contains("Nghe nhạc")
