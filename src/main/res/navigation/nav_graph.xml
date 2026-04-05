@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/firstFragment"
-        android:name="com.example.midbyme.ui.fragments.FirstFragment"
+        android:name="com.example.Phuc_29.ui.fragments.FirstFragment"
         android:label="Bài 2"
         tools:layout="@layout/fragment_first" >
         <action
@@ -16,12 +16,12 @@
     </fragment>
     <fragment
         android:id="@+id/secondFragment"
-        android:name="com.example.midbyme.ui.fragments.SecondFragment"
+        android:name="com.example.Phuc_29.ui.fragments.SecondFragment"
         android:label="fragment_second"
         tools:layout="@layout/fragment_second" />
     <fragment
         android:id="@+id/threeFragment"
-        android:name="com.example.midbyme.ui.fragments.ThirdFragment"
+        android:name="com.example.Phuc_29.ui.fragments.ThirdFragment"
         android:label="Home"
         tools:layout="@layout/fragment_third" >
         <action
@@ -42,7 +42,7 @@
     </fragment>
     <fragment
         android:id="@+id/TBC_InputFragment2"
-        android:name="com.example.midbyme.tbc.TBC_InputFragment"
+        android:name="com.example.Phuc_29.tbc.TBC_InputFragment"
         android:label="Bài 1"
         tools:layout="@layout/fragment_t_b_c__input" >
         <action
@@ -51,22 +51,22 @@
     </fragment>
     <fragment
         android:id="@+id/TBC_OuputFragment2"
-        android:name="com.example.midbyme.tbc.TBC_OuputFragment"
+        android:name="com.example.Phuc_29.tbc.TBC_OuputFragment"
         android:label="fragment_t_b_c__ouput"
         tools:layout="@layout/fragment_t_b_c__ouput" />
     <fragment
         android:id="@+id/PT1Fragment"
-        android:name="com.example.midbyme.pt_bac1.PT1Fragment"
+        android:name="com.example.Phuc_29.pt_bac1.PT1Fragment"
         android:label="fragment_p_t1"
         tools:layout="@layout/fragment_p_t1" />
     <fragment
         android:id="@+id/PTBac2Fragment"
-        android:name="com.example.midbyme.pt_bac2.PTBac2Fragment"
+        android:name="com.example.Phuc_29.pt_bac2.PTBac2Fragment"
         android:label="fragment_pt_bac2"
         tools:layout="@layout/fragment_pt_bac2" />
     <fragment
         android:id="@+id/triangleFragment2"
-        android:name="com.example.midbyme.triangle.TriangleFragment"
+        android:name="com.example.Phuc_29.triangle.TriangleFragment"
         android:label="fragment_triangle_area"
         tools:layout="@layout/fragment_triangle_area" />
 </navigation>

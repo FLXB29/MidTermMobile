@@ -5,12 +5,12 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:padding="20dp"
-    tools:context=".SecondFragment">
+    tools:context=".ui.fragments.SecondFragment">
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/bai2_result_title"
+        android:text="Bài 2: Kết quả sinh viên"
         android:textSize="22sp"
         android:textStyle="bold" />
 
@@ -37,11 +37,16 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp" />
 
+    <TextView android:id="@+id/tvHomeTown"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp" />
+
     <Button
         android:id="@+id/btnBackBai2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
-        android:text="@string/back_to_bai2" />
+        android:text="Trở về danh sách" />
 
 </LinearLayout>

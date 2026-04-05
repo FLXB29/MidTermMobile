@@ -8,13 +8,13 @@ android {
     buildFeatures{
         viewBinding = true
     }
-    namespace = "com.example.midbyme"
+    namespace = "com.example.Phuc_29"
     compileSdk {
         version = release(36)
     }
 
     defaultConfig {
-        applicationId = "com.example.midbyme"
+        applicationId = "com.example.Phuc_29"
         minSdk = 24
         targetSdk = 36
         versionCode = 1
